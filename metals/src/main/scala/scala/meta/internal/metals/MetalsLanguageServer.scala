@@ -333,6 +333,7 @@ class MetalsLanguageServer(
           ServerCommands.all.map(_.id).asJava
         )
       )
+      capabilities.setHoverProvider(true)
       capabilities.setDefinitionProvider(true)
       capabilities.setReferencesProvider(true)
       capabilities.setSignatureHelpProvider(
@@ -679,7 +680,7 @@ class MetalsLanguageServer(
       null
     }
 
-  @JsonRequest("textDocument/hoverForDebuggingPurposes")
+  @JsonRequest("textDocument/hover")
   def hover(params: TextDocumentPositionParams): CompletableFuture[Hover] =
     CancelTokens { token =>
       compilers.hover(params, token).orNull
